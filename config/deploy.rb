@@ -21,9 +21,10 @@ set(:deploy_to) { File.join("", "home", user, application) }
 # the local directory.  You should probably change this if you use
 # another repository, like git or subversion.
 
-set :repository, "."
-set :scm, :none
-set :deploy_via, :copy
+set :repository, "git@github.com:emma-nguyen/travel.git"
+set :scm, :git
+set :branch, "master"
+#set :deploy_via, :copy
 
 ### Other options you can set ##
 # Comma separated list of additional domains for Apache
