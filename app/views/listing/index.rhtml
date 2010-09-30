@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+<head>
+	<title>Andrew's Travel - <%= @listing.hook%> - <%= @city.name%></title>
+	<%= ajaxful_rating_style %>
+	<%= stylesheet_link_tag "travel", :media => "all" %>
+	<%= javascript_include_tag :defaults %>
+	<%= javascript_include_tag "travel/travelHelper" %>
+ 	
+</head>
+<body>
+
+<table style="margin-top: 0px;" width="100%" align="center">
+<tr>
+<td valign="top" style="font-size: large; font-weight: bold; color: #4E9258;">Andrew's Travel</td>
+<td valign="top" style="text-align:right">
+<% if session[:user_id] != nil %>
+<% @user = User.find_by_id(session[:user_id])%>
+	Hi <b><i><%=@user.username%></i></b>!
+	&nbsp;|&nbsp;
+	<%=link_to "Sign out", :controller => "user", :action => "logout"%>
+<% else%>
+	<%=link_to "Sign in", :controller => "user", :action => "login"%>
+	&nbsp;|&nbsp;
+	<%=link_to "Register", :controller => "user", :action => "register"%>
+<% end%>
+</td>
+</tr>
+</table>
+<table style="margin-top: 20px;" width="90%" align="center">
+<tr>
+<th><%=@listing.hook%></th>
+<th style="text-align:right;">Page view: <%= @pageView.page_view%></th>
+
+</tr>
+<tr>
+<td width="1%" valign="top"><%= image_tag @listing.photo.url%></td>
+<td width="99%" valign="top"><%= @listing.description%></td>
+</tr>
+</table>
+
+<div id="group_div">
+<%= render :partial => "groups"%>
+</div>
+<table style="margin-top: 20px;" width="90%" align="center" >
+	<tr>
+		<td width="1%">
+			<table>
+				<tr><th>Map & Directions - <%=@address %></th></tr>
+				<tr>
+				<td width="1%" valign="top">
+					<%= GMap.header%>
+					<%= @map.to_html %>
+					<%= @map.div(:width => 500, :height => 300) %>
+				</td>
+				</tr>
+				
+			</table>
+		</td>
+		<td width="99%" valign="top">
+			<table width="100%">
+				<tr><th colspan="2">Ratings & Reviews</th></tr>
+				<tr><td><%= render :partial => "reviews"%></td></tr>
+			</table>
+
+			<table width="100%">
+			<tr><th>Taggings</th></tr>
+			<tr><td><%= render :partial => "tags"%></td></tr>
+			</table>
+		</td>
+		
+	</tr>
+</table>
+
+
+</body>
+</html>

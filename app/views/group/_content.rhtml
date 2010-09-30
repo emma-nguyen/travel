@@ -1,0 +1,25 @@
+
+<table style="margin-top: 20px;" width="90%" align="center">
+	<tr><th colspan="2">Listings in <%="#{@group.hook}"%></th></tr>
+		
+	<%= render :partial => "listing/listing", :collection => @listings%>
+		
+</table>
+
+
+<table style="margin-top: 20px;" width="90%" align="center">
+<tr><th>Post listing(s) to group</th></tr>
+
+<% if session[:user_id] != nil %>
+<tr>
+	<td>
+	<%form_tag do%>
+	<%= select_tag "listing_list", @options%><br/>
+	<%= submit_to_remote "Submit","Submit", :url => {:controller => "group", :action => "addListing", :id => @group.id}%>
+	<%end%>	
+	</td>
+</tr>
+<%else%>
+<tr><td>Please <%=link_to "sign in", :controller => "user", :action => "login"%> to use this function</td></tr>
+<%end%>
+</table>

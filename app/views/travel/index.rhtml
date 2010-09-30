@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+<head>
+	<title>Andrew's Travel</title>
+	<%= stylesheet_link_tag "travel", :media => "all" %>
+	<%= javascript_include_tag :defaults %>
+	<%= javascript_include_tag "travel/travelHelper" %>
+	
+</head>
+<body onload="displayCity();">
+<table style="margin-top: 0px;" width="100%" align="center">
+<tr>
+<td valign="top" style="font-size: large; font-weight: bold; color: #4E9258;">Andrew's Travel</td>
+<td valign="top" style="text-align:right">
+<% if session[:user_id] != nil %>
+<% @user = User.find_by_id(session[:user_id])%>
+	Hi <b><i><%=@user.username%></i></b>!
+	&nbsp;|&nbsp;
+	<%=link_to "Sign out", :controller => "user", :action => "logout"%>
+<% else%>
+	<%=link_to "Sign in", :controller => "user", :action => "login"%>
+	&nbsp;|&nbsp;
+	<%=link_to "Register", :controller => "user", :action => "register"%>
+<% end%>
+</td>
+</tr>
+</table>
+<table style="margin-top: 20px;" width="90%" align="center" >
+	<tr>
+		<td>Country: </td>
+		<td>
+			<select name="countries_list" id="countries_list" onChange="displayCity();">
+			
+			<option value="-1">Choose a country</option>
+			<% for country in @countries do%>
+				<option value='<%="#{country.id}"%>'><%="#{country.name}"%></option>
+			<% end %>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>City: </td>
+		<td>
+			<select name="cities_list" id="cities_list" onChange="goCity();">
+			<option value="-1">Choose a city</option>
+			</select>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

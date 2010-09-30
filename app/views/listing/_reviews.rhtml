@@ -1,0 +1,55 @@
+<div id="review_div">
+	<table>
+		<% if session[:user_id] == nil %>
+		<tr><td colspan="2"><span class="note">Please <%=link_to "sign in", :controller => "user", :action => "login"%> to give ratings/reviews</td></tr>
+		<% end%>
+		<tr>
+			<td width="1%" nowrap="nowrap">User rating</td>
+			<% if session[:user_id] == nil%>
+			<td width="99%"><%= ratings_for @listing, :static,:remote_options => {:url => "/listing/rate/#{@listing.id}"}%></td>
+			<% else%>
+			<td width="99%"><%= ratings_for @listing, :remote_options => {:url => "/listing/rate/#{@listing.id}"}%></td>
+			
+			<% end%>
+		</tr>
+		<tr>
+		<td nowrap="nowrap" >User reviews</td>
+		<td>
+		<% if session[:user_id] != nil %>
+			<%= link_to_remote "Add/Edit your review", :url => {:controller => "listing", :action => "addReview"}%>
+		<% end%>
+		</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<div id="review_form" style="display:none;">
+			<% form_tag do%>
+			<table>
+			<tr>
+				<td>Your review</td>
+			</tr>
+			<tr>
+				<td><%= text_area_tag "review_content","", :size => "35" %></td>
+			</tr>
+			<tr>
+				<td><%= submit_to_remote "Submit","Submit", :url => {:action => "addReviewSubmit", :id => @listing.id}%>
+				<input type='button' value="Cancel" onclick="document.getElementById('review_form').style.display='none';"></td>
+			</tr>
+			</table>
+			<%end%>
+			</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<div id="review_list">
+				<%= render :partial => "review_list"%>
+			</div>
+			</td>
+		</tr>
+		
+	</table>
+</div>
+				
+				
+		

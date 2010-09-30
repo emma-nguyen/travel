@@ -1,0 +1,22 @@
+	<table>
+	<tr>
+	<td><label><%= "#{contact.name.capitalize}"%></label></td>
+	<td><%=link_to "Print", :action => "printContact", :id => contact.id%></td>
+	</tr>
+	
+	<tr>
+	<td><label>Add listing</label></td>
+	<td>
+	<%@options = "<option value='-1'>Choose a listing</option>"%>
+	<%for listing in Listing.find(:all)%>
+		<%if !contact.listings.include?(listing)%>
+			<%@options = @options + "<option value='#{listing.id}'>#{listing.hook}</option>"%>
+		<%end%>
+	<%end%>
+	<%form_tag do%>
+	<%=select_tag "listing_list", @options%>
+	<%=submit_to_remote "Submit","Submit", :url => {:controller => "contact", :action => "addListing", :id => contact.id}%>
+	<%end%>
+	</td>
+	</tr>
+	</table>

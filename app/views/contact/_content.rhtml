@@ -1,0 +1,26 @@
+<table style="margin-top: 20px;" width="90%" align="center">
+<tr><th>Your contact lists</th></tr>
+<tr><td>
+<% if @contacts != nil and @contacts.length > 0%>
+<% for contact in @contacts do%>
+<div id="contact_#{contact.id}">
+<%= render :partial => "contact", :locals => {:contact => contact}%>
+</div>
+<% end%>
+</td>
+</tr>
+<%else%>
+	<tr><td><span class="note">No contact list created.</span></td></tr>
+<%end%>
+</table>
+
+<table style="margin-top: 20px;" width="90%" align="center">
+<tr><th>Create contact</th></tr>
+<tr><td>
+	<%form_tag do%>
+	<label>Create contact: </label>
+	<%= text_field_tag "contact","", :size => "50"%>
+	<%= submit_to_remote "Submit", "Submit", :url => {:action => "createContact"}%>
+	<%end%>
+</td></tr>
+</table>

@@ -1,0 +1,19 @@
+<div id="tag_div">
+<% form_tag do %> 
+	<label>Add tag:</label>&nbsp;<%= text_field_tag "tag_list","", :size => "35" %>
+	<%= submit_to_remote "Submit","Submit", :url => {:action => "addTag", :id => @listing.id}%>
+	<input type='button' value="Cancel" onclick="document.getElementById('tag_list').value='';">
+<%end %> 
+			
+<br/>
+<label>Tags for <%=@listing.hook%>:</label>
+<br/>
+<% if @listing.tag_list != nil and @listing.tag_list.length > 0%>
+	<% for tagStr in @listing.tag_list %>
+		<%tag = Tag.find_by_name(tagStr)%>
+		&nbsp;&nbsp;<%= link_to tag.name, { :action => "getListingsByTag", :id => tag.id } %>
+	<%end %>
+<% else %>
+	&nbsp;&nbsp;<span class="note">No tags</span>
+<%end%>
+</div>

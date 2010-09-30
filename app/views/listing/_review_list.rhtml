@@ -1,0 +1,35 @@
+<table>
+
+<% if @curr_review == nil and (@other_reviews == nil or @other_reviews.length == 0)%>
+<tr>
+<td class="note" style="font-style: italic; font-weight: bold;" colspan="2">No review yet</td>
+</tr>
+<% end%>
+
+<% if @curr_review != nil%>
+<% @user = User.find_by_id(@curr_review.user_id)%>
+<tr id="review_<%="#{@user.id}"%>">
+<td valign="top">
+<label>Your review: &nbsp;&nbsp;</label>
+</td>
+<td>
+<%= @curr_review.text%>
+</td>
+</tr>
+<% end%>
+
+
+<% if @other_reviews != nil%>
+<% for review in @other_reviews do%>
+<% @user = User.find_by_id(review.user_id)%>
+<tr id="review_<%="#{@user.id}"%>">
+<td valign="top">
+<label><%= @user.username.capitalize%>'s: &nbsp;&nbsp;</label>
+</td>
+<td>
+<%= review.text%>
+</td>
+</tr>
+<% end%>
+<% end%>
+</table>

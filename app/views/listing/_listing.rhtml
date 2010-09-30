@@ -1,0 +1,6 @@
+<tr id="listing_<%="#{listing.id}"%>">
+<td width="1%"><%= image_tag listing.photo.url(:thumb) %></td>
+<td width="99%" valign="top">
+	&nbsp;&nbsp;<%=link_to("#{listing.hook}", :controller => "listing", :action => "index", :id => listing.id)%>
+</td>
+</tr>

@@ -1,0 +1,8 @@
+<% if @listings != nil and @listings.length > 0%>
+	<table style="margin-top: 20px;" width="90%" align="center">
+		<tr><th colspan="2">Listings</th></tr>
+		
+		<%= render :partial => "listing/listing", :collection => @listings%>
+		
+	</table>
+<% end%>

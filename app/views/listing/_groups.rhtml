@@ -1,0 +1,17 @@
+<table  style="margin-top: 20px;" width="90%" align="center" >
+<tr><th>Groups</th></tr>
+<% for group in @groups do%>
+<%= render :partial => "group/group", :locals => {:group => group}%>
+<% end%>
+<% if session[:user_id] != nil%>
+<tr>
+<td>
+<%form_tag do%>
+<label>Post to group: </label>
+<%= select_tag "group_list", @options%>&nbsp;
+<%= submit_to_remote "Submit","Submit", :url => {:controller => "listing", :action => "addGroup", :id => @listing.id}%>
+<%end%>	
+</td>
+</tr>
+<%end%>
+</table>
